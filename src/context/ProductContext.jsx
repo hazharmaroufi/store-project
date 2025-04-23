@@ -1,7 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/config";
 
-const ProductContext = createContext;
+const ProductContext = createContext();
 // کانتکس رو میسازیم که دیتا رو توش قرار بدیم
 
 function ProductsProvider({ children }) {
@@ -23,13 +23,23 @@ function ProductsProvider({ children }) {
   // داخل یوز افکت دیتا رو میگیریم با فتچ و ای سینک
 
   return (
-    <ProductContext.provider value={products}>
+    <ProductContext.Provider value={products}>
       {children}
-    </ProductContext.provider>
+    </ProductContext.Provider>
   );
   //    با اینکار وقتی پروداکتس پرووایدر رو رپ کردیم دور هر کامپوننتی ، اون کانتکس میاد داخل کامپوننت
   //  قرار میگیره و به اطلاعات اون کانتکس داخل اون کامپوننت قابل دسترسیه
   //   و اون اطلاعات همون استیت پروداکتس هستش که داخل ولبو قراردادیم
 }
 
+// یک کاستوم هوک درست میکنیم که به عنوان یک فانکشن داخلش دیتا رو بگیره و فقط همونو منتقل کنم
+const useProducts = () => {
+  const products = useContext(ProductContext);
+  return products;
+  //   خوب نفهمیدم ولی اینجا پروداکتز رو گرفتیم و ریترن کردیم
+};
+
 export default ProductsProvider;
+export { useProducts };
+
+// اینجا کل فانکش رو اکپورت میکنیم که بعدا استفاده کنیم
