@@ -1,3 +1,6 @@
+import Card from "../components/Card";
+import Loader from "../components/Loader";
+
 import { useProducts } from "../context/ProductContext";
 //  این  فانکشن ایمپورت رو از فایل کانتکس انجام دادیم که توش محصولات هستش
 
@@ -7,12 +10,12 @@ function ProductsPage() {
   const products = useProducts();
   // همون فانکشنی که ایمپورت کردیم
 
-  console.log(products);
   return (
     <div className={styles.container}>
       <div className={styles.products}>
+        {!products.length && <Loader />}
         {products.map((p) => (
-          <p key={p.id}>{p.title}</p>
+          <Card key={p.id} data={p} />
         ))}
       </div>
       <div>sidebar</div>
